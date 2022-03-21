@@ -1,17 +1,20 @@
 import { createContext, useReducer } from 'react';
+import { actions } from '../store/actions';
 
-export const TaskContext = createContext({ tasks: [] });
+const initialState = { tasks: [] };
+
+export const TaskContext = createContext(initialState);
 
 function taskReducer(state, action) {
   switch (action.type) {
-    case 'ADD_TASK': {
+    case actions.ADD_TASK: {
       return {
         ...state,
         tasks: [...state.tasks, { text: action.payload, done: false }],
       };
     }
 
-    case 'REMOVE_TASK': {
+    case actions.REMOVE_TASK: {
       const remainingTasks = state.tasks.filter(
         (task) => task.text !== action.payload.text,
       );
@@ -22,7 +25,7 @@ function taskReducer(state, action) {
       };
     }
 
-    case 'SET_TASK_DONE': {
+    case actions.SET_TASK_DONE: {
       const tasks = state.tasks.filter(
         (task) => task.text !== action.payload.text,
       );
@@ -39,10 +42,22 @@ function taskReducer(state, action) {
 }
 
 export const TaskProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(taskReducer, { tasks: [] });
+  const [state, dispatch] = useReducer(taskReducer, initialState);
+
+  function addTask(payload) {
+    dispatch({ type: actions.ADD_TASK, payload });
+  }
+
+  function removeTask(payload) {
+    dispatch({ type: actions.REMOVE_TASK, payload });
+  }
+
+  function setTaskDone(payload) {
+    dispatch({ type: actions.SET_TASK_DONE, payload });
+  }
 
   return (
-    <TaskContext.Provider value={{ state, dispatch }}>
+    <TaskContext.Provider value={{ state, addTask, removeTask, setTaskDone }}>
       {children}
     </TaskContext.Provider>
   );
