@@ -8,9 +8,10 @@ const TaskInput = () => {
   function handleSubmit(event) {
     event.preventDefault();
 
-    dispatch({ type: 'ADD_TODO', payload: value });
-
-    setValue('');
+    if (value) {
+      dispatch({ type: 'ADD_TASK', payload: value });
+      setValue('');
+    }
   }
 
   return (
@@ -23,7 +24,7 @@ const TaskInput = () => {
       />
       <button
         type="submit"
-        className="p-3 rounded-tr rounded-br bg-teal-600 text-white "
+        className="p-3 text-white bg-teal-600 rounded-tr rounded-br "
       >
         Criar
       </button>
