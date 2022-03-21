@@ -3,14 +3,14 @@ import useTasks from '../core/hooks/useTasks';
 import classNames from 'classnames';
 
 const Task = ({ task }) => {
-  const { dispatch } = useTasks();
+  const { removeTask, setTaskDone } = useTasks();
 
   function handleClick() {
-    if (!task.done) dispatch({ type: 'SET_TASK_DONE', payload: task });
+    if (!task.done) setTaskDone(task);
   }
 
   function handleRemoveClick() {
-    dispatch({ type: 'REMOVE_TASK', payload: task });
+    removeTask(task);
   }
 
   const taskClass = {

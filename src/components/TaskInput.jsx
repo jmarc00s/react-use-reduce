@@ -3,13 +3,13 @@ import useTasks from '../core/hooks/useTasks';
 
 const TaskInput = () => {
   const [value, setValue] = useState('');
-  const { dispatch } = useTasks();
+  const { addTask } = useTasks();
 
   function handleSubmit(event) {
     event.preventDefault();
 
     if (value) {
-      dispatch({ type: 'ADD_TASK', payload: value });
+      addTask(value);
       setValue('');
     }
   }
