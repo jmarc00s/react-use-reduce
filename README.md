@@ -1,3 +1,3 @@
-# react-use-reduce
+# React-use-reduce
 
-React app to test use of ContextApi + useReducer Hook.
+React app to understand the use of ContextApi + useReducer Hook.
